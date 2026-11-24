@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>육아휴직 급여 계산기</title>
+<meta name="description" content="2026년 기준 육아휴직 급여를 월별로 계산해요. 6+6 부모육아휴직제, 상한액·하한액 자동 적용.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* VOICE work, a money tool for parents planning leave: calm, exact
+   IDEA a central bank bulletin: ruled figures, one deep teal
+   PICTURE month-by-month bars of the payout, caps drawn as ticks
+   COLOUR white ground, ink #14161a, teal #0b5d63, rule grey; night #0d1416
+   TYPE Libre Caslon Text / Noto Serif KR display + Noto Sans KR text
+   LAYOUT laptop: inputs left, result + bars right; phone: title, result, inputs, bars */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0d1416);--ink:light-dark(#14161a,#e6ecec);--mut:light-dark(#545a61,#9fb0b2);--rule:light-dark(#d9dcdf,#26343a);--soft:light-dark(#f2f6f6,#13211f);--teal:light-dark(#0b5d63,#4fb7bd);--tealsoft:light-dark(#cfe4e5,#1b3d40);--cap:light-dark(#14161a,#e6ecec)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(24px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+header.top{border-bottom:1px solid var(--rule);padding:14px max(5vw,16px)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font:700 17px/1 "Noto Serif KR",serif}
+.brand small{font:500 13px "Noto Sans KR",sans-serif;color:var(--mut);margin-left:8px}
+.basis{font-size:13px;color:var(--mut)}
+h1{font:700 clamp(30px,4.4vw,46px)/1.12 "Libre Caslon Text","Noto Serif KR",serif;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+.lede{color:var(--mut);margin:0 0 28px;max-width:60ch}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:start}
+.panel{border:1px solid var(--rule);border-radius:10px;padding:22px}
+.field{margin-bottom:22px}
+.field:last-child{margin-bottom:0}
+label.l{display:block;font-weight:700;margin-bottom:8px}
+.hint{font-size:13px;color:var(--mut);margin-top:6px}
+.money{display:flex;align-items:center;border:1px solid var(--mut);border-radius:8px;height:52px;padding:0 14px;background:var(--bg)}
+.money:focus-within{outline:3px solid var(--tealsoft);border-color:var(--teal)}
+.money input{border:0;outline:0;background:transparent;color:var(--ink);font:500 20px "Noto Sans KR",sans-serif;width:100%;text-align:right;font-variant-numeric:tabular-nums}
+.money span{margin-left:8px;color:var(--mut);white-space:nowrap}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.presets button,.seg button{min-height:44px;padding:0 14px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);font:500 14px "Noto Sans KR",sans-serif;cursor:pointer}
+.presets button:hover,.seg button:hover{border-color:var(--teal)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.mrow{display:flex;align-items:center;gap:14px}
+.mrow output{font:700 20px "Noto Sans KR",sans-serif;white-space:nowrap;width:4.5em;text-align:right}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:var(--tealsoft)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--tealsoft)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--teal);margin-top:-10px;border:3px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--teal);border:3px solid var(--bg)}
+.check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;min-height:44px}
+.check input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--teal);flex:none}
+.check b{display:block}
+.check span{font-size:13px;color:var(--mut)}
+.result{border-top:3px solid var(--teal);padding-top:16px}
+.rlabel{font-size:14px;color:var(--mut)}
+.total{font:700 clamp(40px,6vw,64px)/1.05 "Libre Caslon Text","Noto Serif KR",serif;letter-spacing:-.02em;margin:6px 0 4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.total small{font-size:.45em;margin-left:4px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:16px 0 20px}
+.figs div{padding:12px 14px 12px 0}
+.figs div+div{border-left:1px solid var(--rule);padding-left:14px}
+.figs dt{font-size:13px;color:var(--mut)}
+.figs dd{margin:2px 0 0;font:700 19px "Noto Sans KR",sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+.note{font-size:14px;background:var(--soft);border-radius:8px;padding:12px 14px;margin:0 0 18px}
+.note:empty{display:none}
+.bars{display:flex;align-items:flex-end;gap:4px;height:220px;border-bottom:1px solid var(--ink);padding-top:22px}
+.bar{flex:1 1 0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.bar i{display:block;width:100%;max-width:38px;background:var(--teal);border-radius:3px 3px 0 0;transition:height .35s ease}
+.bar.cut i{background:color-mix(in srgb,var(--teal) 70%,var(--bg))}
+.bar em{position:absolute;font-style:normal;font-size:12px;color:var(--mut);white-space:nowrap;transform:translateY(-100%);padding-bottom:3px}
+.axis{display:flex;gap:4px;font-size:12px;color:var(--mut);margin-top:6px}
+.axis span{flex:1 1 0;text-align:center}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--mut);margin-top:12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--teal);margin-right:6px;vertical-align:-1px}
+.legend i.c{background:color-mix(in srgb,var(--teal) 70%,var(--bg))}
+h2{font:700 24px/1.25 "Noto Serif KR",serif;margin:0 0 14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:9px 10px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:13px;color:var(--mut);font-weight:500}
+td.tag{font-size:13px;color:var(--mut)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px}
+.rules p,.rules li{color:var(--ink)}
+.rules ul{padding-left:18px;margin:0}
+.rules li{margin-bottom:6px}
+footer{border-top:1px solid var(--rule);font-size:13px;color:var(--mut)}
+.sticky{display:none}
+@media(max-width:820px){.grid{grid-template-columns:minmax(0,1fr)}.outcol{order:-1}}
+@media(max-width:600px){.bar em{display:none}.bars{height:170px}.axis span:nth-child(even){visibility:hidden}.sticky{display:flex;position:sticky;bottom:0;justify-content:space-between;align-items:center;background:var(--teal);color:#fff;padding:12px 16px;font-weight:700;z-index:5}.sticky b{font-size:18px;white-space:nowrap}table{font-size:13px}th,td{padding:7px 5px}}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">돈셈<small>직장인·프리랜서 계산기</small></div>
+  <div class="basis">2026년 고용노동부 기준</div>
+</div></header>
+
+<main>
+<section class="band"><div class="wrap">
+  <h1>육아휴직 급여, 매달 얼마 받을까</h1>
+  <p class="lede">월 통상임금과 휴직 기간만 넣으면 상한액·하한액을 적용해 달마다 받을 금액을 계산해요.</p>
+
+  <div class="grid">
+    <form class="panel" id="f" autocomplete="off">
+      <div class="field">
+        <label class="l" for="wage">월 통상임금</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3,500,000" aria-describedby="wageHint"><span>원</span></div>
+        <div class="hint" id="wageHint">기본급과 매달 고정으로 받는 수당의 합이에요. 성과급·야근수당은 빼요.</div>
+        <div class="presets" id="presets"></div>
+      </div>
+      <div class="field">
+        <label class="l" for="months">휴직 기간</label>
+        <div class="mrow"><input type="range" id="months" min="1" max="18" step="1" value="12"><output id="mOut" for="months">12개월</output></div>
+        <div class="hint">기본 1년, 부모가 각각 3개월 이상 쓰는 등 조건을 채우면 최대 1년 6개월이에요.</div>
+      </div>
+      <div class="field">
+        <label class="check" for="six"><input type="checkbox" id="six"><div><b>6+6 부모육아휴직제 적용</b><span>자녀가 생후 18개월 이내이고 부모 모두 휴직할 때, 첫 6개월 상한이 올라가요.</span></div></label>
+      </div>
+    </form>
+
+    <div class="outcol">
+      <div class="result">
+        <div class="rlabel">휴직 기간 동안 받는 총 금액</div>
+        <div class="total" id="total" aria-live="polite">0<small>원</small></div>
+        <dl class="figs">
+          <div><dt>월 평균</dt><dd id="avg">0원</dd></div>
+          <div><dt>평소 월급 대비</dt><dd id="ratio">0%</dd></div>
+          <div><dt>상한에 걸린 달</dt><dd id="capped">0개월</dd></div>
+        </dl>
+        <p class="note" id="note"></p>
+        <div class="bars" id="bars" role="img" aria-label="월별 육아휴직 급여 막대그래프"></div>
+        <div class="axis" id="axis" aria-hidden="true"></div>
+        <div class="legend"><span><i></i>통상임금대로 받는 달</span><span><i class="c"></i>상한액이 적용된 달</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" style="background:var(--soft)"><div class="wrap">
+  <h2>월별 상세</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>개월차</th><th>지급률</th><th>상한액</th><th>받는 금액</th><th>적용</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</div></section>
+
+<section class="band"><div class="wrap rules">
+  <div>
+    <h2>2026년 계산 기준</h2>
+    <ul>
+      <li>1~3개월차: 통상임금 100%, 월 최대 250만 원</li>
+      <li>4~6개월차: 통상임금 100%, 월 최대 200만 원</li>
+      <li>7개월차부터: 통상임금 80%, 월 최대 160만 원</li>
+      <li>모든 달 하한액: 월 70만 원</li>
+      <li>사후지급금(25%)은 폐지돼서 매달 전액을 받아요.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>6+6 부모육아휴직제</h2>
+    <ul>
+      <li>자녀 생후 18개월 이내, 부모가 모두 육아휴직을 쓸 때 적용</li>
+      <li>첫 6개월 통상임금 100%, 상한이 250·250·300·350·400·450만 원으로 올라가요.</li>
+      <li>7개월차부터는 일반 기준(80%, 최대 160만 원)으로 돌아가요.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>알아 두세요</h2>
+    <ul>
+      <li>휴직 시작 1개월 뒤부터, 끝난 뒤 12개월 안에 고용24에서 신청해요.</li>
+      <li>휴직 시작 전 고용보험 가입 기간(피보험 단위기간)이 180일 이상이어야 해요.</li>
+      <li>한부모 특례, 1개월 미만 일할 계산은 이 계산기에 반영하지 않았어요.</li>
+    </ul>
+  </div>
+</div></section>
+</main>
+
+<div class="sticky" aria-hidden="true"><span>총 수령액</span><b id="stk">0원</b></div>
+
+<footer class="band"><div class="wrap">예상 금액이며 실제 지급액은 고용센터가 결정해요. 공개된 2026년 기준을 바탕으로 했어요.</div></footer>
+
+<script>
+{
+const MAN = 10000;
+const FLOOR = 70 * MAN;
+const won = n => Math.round(n).toLocaleString('ko-KR') + '원';
+const manwon = n => (n / MAN).toLocaleString('ko-KR', {maximumFractionDigits: 1}) + '만';
+
+function plan(wage, months, six) {
+  const out = [];
+  for (let m = 1; m <= months; m++) {
+    let rate, cap;
+    if (six && m <= 6) { rate = 1; cap = [250, 250, 300, 350, 400, 450][m - 1] * MAN; }
+    else if (m <= 3) { rate = 1; cap = 250 * MAN; }
+    else if (m <= 6) { rate = 1; cap = 200 * MAN; }
+    else { rate = 0.8; cap = 160 * MAN; }
+    const base = wage * rate;
+    let pay = Math.min(base, cap), kind = base > cap ? '상한' : '통상임금';
+    if (pay < FLOOR) { pay = FLOOR; kind = '하한'; }
+    out.push({m, rate, cap, pay, kind});
+  }
+  return out;
+}
+
+const $ = id => document.getElementById(id);
+const wage = $('wage'), months = $('months'), six = $('six');
+const PRESETS = [2500000, 3500000, 5000000];
+$('presets').innerHTML = PRESETS.map(v => '<button type="button" data-v="' + v + '">' + manwon(v) + '원</button>').join('');
+
+function readWage() { return Number(wage.value.replace(/[^0-9]/g, '')) || 0; }
+
+function render() {
+  const w = readWage(), n = Number(months.value), s = six.checked;
+  $('mOut').textContent = n + '개월';
+  const p = plan(w, n, s);
+  const total = p.reduce((a, r) => a + r.pay, 0);
+  const capped = p.filter(r => r.kind === '상한').length;
+  $('total').innerHTML = Math.round(total).toLocaleString('ko-KR') + '<small>원</small>';
+  $('stk').textContent = won(total);
+  $('avg').textContent = won(total / n);
+  $('ratio').textContent = w ? Math.round(total / n / w * 100) + '%' : '-';
+  $('capped').textContent = capped + '개월';
+
+  let note = '';
+  if (n > 12) note = '12개월을 넘기려면 부모가 각각 3개월 이상 휴직하는 등 조건을 채워야 해요.';
+  else if (!s && w > 250 * MAN) note = '자녀가 생후 18개월 이내이고 배우자도 휴직한다면 6+6을 켜 보세요. 첫 6개월에 더 받을 수 있어요.';
+  if (w && w < FLOOR) note = '통상임금이 하한액보다 낮아도 월 70만 원은 보장돼요.';
+  $('note').textContent = note;
+
+  const max = Math.max(...p.map(r => Math.max(r.pay, r.cap)));
+  $('bars').innerHTML = p.map(r =>
+    '<div class="bar' + (r.kind === '상한' ? ' cut' : '') + '" title="' + r.m + '개월차 ' + won(r.pay) + '">' +
+    '<i style="height:' + (r.pay / max * 100).toFixed(1) + '%"></i>' +
+    '<em style="bottom:' + (r.pay / max * 100).toFixed(1) + '%">' + manwon(r.pay) + '</em></div>').join('');
+  $('axis').innerHTML = p.map(r => '<span>' + r.m + '</span>').join('');
+  $('rows').innerHTML = p.map(r =>
+    '<tr><td>' + r.m + '개월차</td><td>' + Math.round(r.rate * 100) + '%</td><td>' + manwon(r.cap) + '원</td><td><b>' + won(r.pay) + '</b></td><td class="tag">' + r.kind + '</td></tr>').join('') +
+    '<tr><td><b>합계</b></td><td></td><td></td><td><b>' + won(total) + '</b></td><td></td></tr>';
+
+  try { localStorage.setItem('ppl', JSON.stringify({w, n, s})); } catch (e) {}
+}
+
+function fmt() {
+  const v = readWage();
+  wage.value = v ? v.toLocaleString('ko-KR') : '';
+}
+
+try {
+  const saved = JSON.parse(localStorage.getItem('ppl') || 'null');
+  if (saved) { wage.value = String(saved.w); months.value = saved.n; six.checked = !!saved.s; }
+} catch (e) {}
+fmt();
+
+wage.addEventListener('input', () => { fmt(); render(); });
+months.addEventListener('input', render);
+six.addEventListener('change', render);
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  wage.value = b.dataset.v; fmt(); render();
+});
+$('f').addEventListener('submit', e => e.preventDefault());
+render();
+}
+</script>
+</body>
+</html>
