@@ -101,3 +101,12 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--mut)}
 .qa:last-child{border-bottom:0;padding-bottom:0}
 .qa h3{margin:0 0 6px;font-size:16px;font-weight:700}
 .qa p{margin:0;color:var(--mut)}
+/* 연봉별 실수령액 페이지 */
+tr.on td{background:var(--soft)}
+.ch{margin:0;font:400 22px "Jua",sans-serif}
+.notes{margin:0;padding-left:18px;line-height:1.6;font-size:15px}
+.notes li{margin-bottom:8px}
+.cta{display:block;text-align:center;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;padding:14px;text-decoration:none}
+.sallinks{display:flex;flex-wrap:wrap;gap:8px}
+.sallinks a,.sallinks b{display:inline-block;padding:8px 12px;border-radius:12px;background:var(--bg);color:inherit;text-decoration:none;font-size:14px}
+.sallinks b{background:var(--acc);color:#fff}
