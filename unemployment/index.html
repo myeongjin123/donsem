@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>실업급여 계산기 2026 - 받을셈</title>
+<meta name="description" content="2026년 실업급여(구직급여) 1일 상한 68,100원, 하한 66,048원 기준으로 하루 얼마, 며칠, 총 얼마 받는지 계산해요.">
+<link rel="canonical" href="https://badeulsem.chamyeongjin62.workers.dev/unemployment/">
+<meta property="og:title" content="실업급여 계산기 2026 - 받을셈">
+<meta property="og:description" content="하루 얼마씩, 며칠 동안, 총 얼마 받을까? 2026년 상한·하한액 적용.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gothic+A1:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#FBDDE6">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="28" y="30" width="84" height="70" rx="12" fill="#F3B6C8"></rect><rect x="28" y="30" width="84" height="20" rx="10" fill="#C2255C"></rect><rect x="44" y="20" width="8" height="20" rx="4" fill="#8F1D45"></rect><rect x="88" y="20" width="8" height="20" rx="4" fill="#8F1D45"></rect><text x="70" y="86" text-anchor="middle" font-family="Jua, sans-serif" font-size="26" fill="#8F1D45">D+</text></svg>
+    <small style="color:#9C1F4D">실업급여 계산기</small>
+    <h1>다음 일 찾는 동안<br>얼마 받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="wage">퇴사 전 3개월 평균 월급 (세전)</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3000000"><span>원</span></div>
+        <div class="hint">기본급, 수당, 야근수당까지 포함한 세금 떼기 전 금액이에요.</div>
+      </div>
+      <div class="f">
+        <span class="lab">고용보험 가입기간</span>
+        <div class="pills" id="yrs" role="group" aria-label="고용보험 가입기간">
+          <button type="button" data-y="0">1년 미만</button><button type="button" data-y="1">1~3년</button><button type="button" data-y="3">3~5년</button><button type="button" data-y="5">5~10년</button><button type="button" data-y="10">10년 이상</button>
+        </div>
+        <div class="hint">지금 회사와, 3년 안에 옮겨 온 이전 회사의 가입기간을 합쳐요.</div>
+      </div>
+      <label class="check" for="age"><input type="checkbox" id="age"><span><b>퇴사일에 만 50세 이상이거나 장애인이에요</b><br>같은 가입기간이라도 받는 날이 30일 늘어나요</span></label>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k" id="tk">총 받을 셈</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="vbars" id="bars" role="img" aria-label="4주마다 받는 금액 막대그래프"></div>
+      <div class="vaxis" id="axis" aria-hidden="true"></div>
+      <div class="sub" style="margin-top:4px;font-size:12px">실업인정을 받을 때마다 들어오는 돈 (보통 4주마다)</div>
+      <dl class="figs">
+        <div><dt>하루에</dt><dd id="daily">-</dd></div>
+        <div><dt>받는 날</dt><dd id="days">-</dd></div>
+        <div><dt>4주마다</dt><dd id="per">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>받는 날 (소정급여일수)</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>가입기간</th><th>50세 미만</th><th>50세 이상·장애인</th></tr></thead>
+      <tbody>
+        <tr><td>1년 미만</td><td>120일</td><td>120일</td></tr>
+        <tr><td>1년 이상 3년 미만</td><td>150일</td><td>180일</td></tr>
+        <tr><td>3년 이상 5년 미만</td><td>180일</td><td>210일</td></tr>
+        <tr><td>5년 이상 10년 미만</td><td>210일</td><td>240일</td></tr>
+        <tr><td>10년 이상</td><td>240일</td><td>270일</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>2026년 계산 기준</h2>
+    <div class="box"><ul>
+      <li>하루 받는 돈 = 퇴사 전 평균임금의 60%</li>
+      <li>1일 상한액 68,100원, 하한액 66,048원 (2026년 1월 1일 이후 퇴사자)</li>
+      <li>하한액은 2026년 최저임금 10,320원 × 80% × 8시간이에요. 하루 8시간보다 짧게 일했다면 더 낮아져요.</li>
+      <li>평균임금은 월급 × 12 ÷ 365로 어림했어요. 실제로는 퇴사 전 3개월 임금을 그 기간 일수로 나눠요.</li>
+      <li>퇴사 전 18개월 동안 고용보험 가입일(피보험단위기간)이 180일 이상이고, 권고사직·계약 만료처럼 본인 뜻이 아닌 퇴사여야 받을 수 있어요.</li>
+      <li>최근 5년 안에 3번 이상 받았다면 10~50% 줄어들 수 있어요.</li>
+      <li>퇴사 다음 날부터 12개월 안에만 받을 수 있으니 바로 신청하세요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer>예상 금액이며 수급 자격과 실제 지급액은 고용센터가 결정해요. 2026년 고용보험법 기준이에요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>실업급여</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('ub') || {};
+  let years = saved.y ?? 3;
+  const age = $('age');
+  age.checked = !!saved.a;
+  const wage = BS.moneyInput($('wage'), render);
+  if (saved.w) wage.set(saved.w);
+
+  function render() {
+    const w = wage.read();
+    document.querySelectorAll('#yrs button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.y === years)));
+    const r = BS.calc.unemployment(w, age.checked, years);
+    BS.countUp($('total'), r.total, BS.won);
+    BS.countUp($('stk'), r.total, BS.won);
+    $('sub').textContent = '하루 ' + BS.won(r.daily) + ' × ' + r.days + '일';
+    $('daily').textContent = BS.won(r.daily);
+    $('days').textContent = r.days + '일';
+    $('per').textContent = BS.manwon(r.per4w) + ' 원';
+
+    const items = [];
+    for (let d = 0, i = 1; d < r.days; d += 28, i++) {
+      const n = Math.min(28, r.days - d);
+      items.push({ pct: n / 28 * 100, cls: '', title: i + '회차 ' + BS.won(r.daily * n), label: i + '회' });
+    }
+    BS.setVBars($('bars'), $('axis'), items);
+
+    let tip = '';
+    if (r.kind === '하한') tip = '평균임금의 60%가 하한액보다 낮아서 하루 66,048원을 받아요.';
+    else if (r.kind === '상한') tip = '평균임금의 60%가 상한액을 넘어서 하루 68,100원까지만 받아요. 월급이 높아도 실업급여는 거의 같아요.';
+    $('tip').textContent = tip;
+    BS.store('ub', { w: w, y: years, a: age.checked });
+  }
+
+  $('yrs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { years = +b.dataset.y; render(); } });
+  age.addEventListener('change', render);
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

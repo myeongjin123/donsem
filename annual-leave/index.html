@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연차수당 계산기 2026 - 받을셈</title>
+<meta name="description" content="입사일만 넣으면 올해 연차 개수와 안 쓴 연차의 연차수당을 계산해요. 근로기준법 제60조 기준.">
+<link rel="canonical" href="https://badeulsem.chamyeongjin62.workers.dev/annual-leave/">
+<meta property="og:title" content="연차수당 계산기 2026 - 받을셈">
+<meta property="og:description" content="올해 연차는 며칠, 안 쓰면 얼마? 입사일과 월급으로 바로 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gothic+A1:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#DCEFE2">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="30" y="24" width="80" height="76" rx="14" fill="#B5DEC2"></rect><rect x="30" y="24" width="80" height="22" rx="11" fill="#1F8A4C"></rect><circle cx="52" cy="70" r="6" fill="#1F8A4C"></circle><circle cx="70" cy="70" r="6" fill="#1F8A4C"></circle><circle cx="88" cy="70" r="6" fill="#86C79C"></circle></svg>
+    <small style="color:#17683A">연차수당 계산기</small>
+    <h1>안 쓴 연차,<br>돈으로 얼마 받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="start">입사일</label>
+        <input type="date" id="start" value="2022-03-02">
+      </div>
+      <div class="f">
+        <label for="ref">기준일 (오늘 또는 퇴사일)</label>
+        <input type="date" id="ref">
+      </div>
+      <div class="f">
+        <label for="wage">월 통상임금</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3000000"><span>원</span></div>
+        <div class="hint">기본급과 매달 고정으로 받는 수당의 합이에요.</div>
+      </div>
+      <div class="row">
+        <span class="lab" id="ul">올해 연차 중 쓴 날</span>
+        <div class="stepper"><button type="button" id="dec" aria-label="하루 줄이기">−</button><output id="uOut" aria-labelledby="ul">5일</output><button type="button" id="inc" aria-label="하루 늘리기">+</button></div>
+      </div>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k">안 쓴 연차를 돈으로 받으면</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="vbars" id="bars" role="img" aria-label="근속연수별 연차 일수 막대그래프"></div>
+      <div class="vaxis" id="axis" aria-hidden="true"></div>
+      <div class="sub" style="margin-top:4px;font-size:12px">근속연수별 연차 일수 · 밝은 막대가 지금</div>
+      <dl class="figs">
+        <div><dt>근속</dt><dd id="yrs">-</dd></div>
+        <div><dt>올해 연차</dt><dd id="days">-</dd></div>
+        <div><dt>1일 통상임금</dt><dd id="daily">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>근속연수별 연차 일수</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>근속</th><th>연차</th><th>다 안 쓰면</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>계산 기준 (근로기준법 제60조)</h2>
+    <div class="box"><ul>
+      <li>입사 1년 미만: 1개월 개근할 때마다 1일, 최대 11일</li>
+      <li>1년 이상, 출근율 80% 이상: 15일</li>
+      <li>3년 이상: 최초 1년을 넘는 근속 2년마다 1일 더해서 최대 25일</li>
+      <li>연차수당 = 1일 통상임금 × 안 쓴 연차일수</li>
+      <li>1일 통상임금 = 월 통상임금 ÷ 209시간 × 8시간 (주 40시간 기준)</li>
+      <li>상시 5인 이상 사업장, 주 15시간 이상 일하는 사람에게 적용돼요.</li>
+      <li>입사일 기준으로 계산했어요. 회사가 회계연도(1월 1일) 기준이면 달라질 수 있어요.</li>
+      <li>회사가 연차 사용 촉진을 제대로 했다면 수당이 없을 수 있어요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer>예상 금액이며 실제 연차와 수당은 회사 규정에 따라 달라질 수 있어요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>연차수당</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('al') || {};
+  if (saved.st) $('start').value = saved.st;
+  $('ref').value = saved.rf || BS.isoDate(new Date());
+  let used = saved.u ?? 5;
+  const wage = BS.moneyInput($('wage'), render);
+  if (saved.w) wage.set(saved.w);
+
+  function render() {
+    const st = BS.parseDate($('start').value), rf = BS.parseDate($('ref').value), w = wage.read();
+    if (!st || !rf || rf < st) { $('tip').textContent = '기준일은 입사일보다 뒤여야 해요.'; return; }
+    const r0 = BS.calc.annualLeave(st, rf, w, 0);
+    used = Math.min(used, r0.days);
+    const r = BS.calc.annualLeave(st, rf, w, used);
+    $('uOut').textContent = used + '일';
+    BS.countUp($('total'), r.pay, BS.won);
+    BS.countUp($('stk'), r.pay, BS.won);
+    $('sub').textContent = '올해 연차 ' + r.days + '일 중 ' + r.unused + '일 남았어요';
+    $('yrs').textContent = r.years < 1 ? r.months + '개월' : r.years + '년';
+    $('days').textContent = r.days + '일';
+    $('daily').textContent = BS.manwon(r.daily) + ' 원';
+
+    const n = Math.max(10, r.years + 4), items = [];
+    for (let y = 1; y <= n; y++) {
+      const d = BS.calc.leaveDaysForYear(y);
+      items.push({ pct: d / 25 * 100, cls: y === r.years ? 'on' : 'dim', title: y + '년 ' + d + '일', label: String(y) });
+    }
+    BS.setVBars($('bars'), $('axis'), items);
+
+    const rows = [];
+    for (let y = 1; y <= 21; y += (y < 5 ? 1 : 2)) {
+      const d = BS.calc.leaveDaysForYear(y);
+      rows.push('<tr' + (y === r.years ? ' style="background:#FFE3B8"' : '') + '><td>' + y + '년</td><td>' + d + '일</td><td>' + BS.won(r.daily * d) + '</td></tr>');
+    }
+    $('rows').innerHTML = rows.join('');
+
+    let tip = '';
+    if (r.years < 1) tip = '입사 1년 미만이라 개근한 달마다 1일씩 생겨요. 지금까지 ' + r.days + '일이에요.';
+    else if (r.years >= 21) tip = '연차는 최대 25일까지만 늘어나요.';
+    else { const next = r.years + (r.years % 2 === 0 ? 1 : 2); if (next >= 3) tip = '근속 ' + next + '년이 되면 연차가 ' + BS.calc.leaveDaysForYear(next) + '일로 늘어나요.'; }
+    $('tip').textContent = tip;
+    BS.store('al', { st: $('start').value, rf: $('ref').value, w: w, u: used });
+  }
+
+  $('dec').addEventListener('click', () => { used = Math.max(0, used - 1); render(); });
+  $('inc').addEventListener('click', () => { used = used + 1; render(); });
+  $('start').addEventListener('change', render);
+  $('ref').addEventListener('change', render);
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

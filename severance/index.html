@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>퇴직금 계산기 2026 - 받을셈</title>
+<meta name="description" content="입사일, 퇴사일, 월급만 넣으면 평균임금과 퇴직금을 계산해요. 상여금·연차수당 3/12 가산까지 반영.">
+<link rel="canonical" href="https://badeulsem.chamyeongjin62.workers.dev/severance/">
+<meta property="og:title" content="퇴직금 계산기 2026 - 받을셈">
+<meta property="og:description" content="그만두면 퇴직금 얼마? 평균임금부터 상여금 가산까지 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gothic+A1:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#E3E4FA">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="26" y="40" width="88" height="60" rx="12" fill="#B9BCF0"></rect><path d="M26 52 L70 78 L114 52" fill="none" stroke="#4C52C9" stroke-width="6" stroke-linejoin="round"></path><rect x="54" y="20" width="32" height="28" rx="6" fill="#FFC067"></rect><text x="70" y="40" text-anchor="middle" font-family="Jua, sans-serif" font-size="18" fill="#B4430A">₩</text></svg>
+    <small style="color:#3E43A8">퇴직금 계산기</small>
+    <h1>그동안 일한 만큼,<br>얼마 받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="start">입사일</label>
+        <input type="date" id="start" value="2021-04-01">
+      </div>
+      <div class="f">
+        <label for="last">마지막 근무일</label>
+        <input type="date" id="last" value="2026-09-30">
+      </div>
+      <div class="f">
+        <label for="wage">퇴사 전 3개월 평균 월급 (세전)</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3200000"><span>원</span></div>
+        <div class="hint">기본급, 고정 수당, 야근수당까지 포함해요.</div>
+      </div>
+      <div class="f">
+        <label for="bonus">최근 1년 상여금 합계</label>
+        <div class="money"><input id="bonus" inputmode="numeric" value="2400000"><span>원</span></div>
+      </div>
+      <div class="f">
+        <label for="lv">최근 1년 받은 연차수당</label>
+        <div class="money"><input id="lv" inputmode="numeric" value="0"><span>원</span></div>
+        <div class="hint">없으면 0으로 두세요.</div>
+      </div>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k">퇴직금으로 받을 셈 (세전)</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="vbars" id="bars" role="img" aria-label="근속연수별 퇴직금 막대그래프"></div>
+      <div class="vaxis" id="axis" aria-hidden="true"></div>
+      <div class="sub" style="margin-top:4px;font-size:12px">같은 월급으로 계속 다녔다면, 해마다 쌓인 퇴직금</div>
+      <dl class="figs">
+        <div><dt>재직일수</dt><dd id="wd">-</dd></div>
+        <div><dt>1일 평균임금</dt><dd id="avg">-</dd></div>
+        <div><dt>월급 대비</dt><dd id="mult">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>계산 과정</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>단계</th><th>계산</th><th>금액</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>계산 기준 (근로자퇴직급여 보장법)</h2>
+    <div class="box"><ul>
+      <li>퇴직금 = 1일 평균임금 × 30일 × 재직일수 ÷ 365</li>
+      <li>1일 평균임금 = (퇴사 전 3개월 임금 + 연 상여금 × 3/12 + 연차수당 × 3/12) ÷ 그 3개월의 달력 일수</li>
+      <li>재직일수는 입사일부터 마지막 근무일까지 달력 날짜로 세요.</li>
+      <li>1년 이상 일하고, 주 15시간 이상 일한 사람이 받을 수 있어요.</li>
+      <li>평균임금이 통상임금보다 적으면 통상임금으로 계산해요. 이 계산기는 반영하지 않았어요.</li>
+      <li>퇴직소득세는 빼기 전 금액이에요. 퇴사 후 14일 안에 받는 게 원칙이에요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer>세전 예상 금액이에요. 실제 퇴직금은 회사 규정과 퇴직연금 종류(DB·DC)에 따라 달라질 수 있어요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>퇴직금</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('sv') || {};
+  if (saved.st) $('start').value = saved.st;
+  if (saved.ls) $('last').value = saved.ls;
+  const wage = BS.moneyInput($('wage'), render), bonus = BS.moneyInput($('bonus'), render), lv = BS.moneyInput($('lv'), render);
+  if (saved.w) wage.set(saved.w);
+  if (saved.b != null) bonus.set(saved.b);
+  if (saved.l != null) lv.set(saved.l);
+
+  function render() {
+    const st = BS.parseDate($('start').value), ls = BS.parseDate($('last').value);
+    if (!st || !ls || ls <= st) { $('tip').textContent = '마지막 근무일은 입사일보다 뒤여야 해요.'; return; }
+    const w = wage.read(), b = bonus.read(), l = lv.read();
+    const r = BS.calc.severance(st, ls, w, b, l);
+    BS.countUp($('total'), r.pay, BS.won);
+    BS.countUp($('stk'), r.pay, BS.won);
+    const yrs = r.workDays / 365;
+    $('sub').textContent = r.eligible ? '1일 평균임금 ' + BS.won(r.avg) + ' × 30일 × ' + (Math.round(yrs * 100) / 100) + '년' : '1년 이상 일해야 받을 수 있어요';
+    $('wd').textContent = r.workDays.toLocaleString('ko-KR') + '일';
+    $('avg').textContent = BS.manwon(r.avg) + ' 원';
+    $('mult').textContent = w ? (Math.round(r.pay / w * 10) / 10) + '개월치' : '-';
+
+    const full = Math.max(1, Math.ceil(yrs)), n = Math.max(full, 5), per = r.avg * 30, items = [];
+    const top = per * n;
+    for (let y = 1; y <= n; y++) {
+      const amt = per * Math.min(y, yrs);
+      items.push({ pct: (y <= Math.floor(yrs) ? per * y : (y === full ? r.pay : per * y)) / top * 100, cls: y === full ? 'on' : (y < full ? '' : 'dim'), title: y + '년차 ' + BS.won(amt), label: y + '년' });
+    }
+    BS.setVBars($('bars'), $('axis'), items);
+
+    $('rows').innerHTML = [
+      ['3개월 임금', BS.won(w) + ' × 3', BS.won(w * 3)],
+      ['상여금 가산', BS.won(b) + ' × 3/12', BS.won(b * 3 / 12)],
+      ['연차수당 가산', BS.won(l) + ' × 3/12', BS.won(l * 3 / 12)],
+      ['1일 평균임금', BS.won(r.total3) + ' ÷ ' + r.periodDays + '일', BS.won(r.avg)],
+      ['퇴직금', '× 30일 × ' + r.workDays + '일 ÷ 365', BS.won(r.pay)]
+    ].map(c => '<tr><td>' + c[0] + '</td><td>' + c[1] + '</td><td><b>' + c[2] + '</b></td></tr>').join('');
+
+    $('tip').textContent = r.eligible ? '' : '재직일수가 1년(365일)이 안 돼서 법정 퇴직금이 생기지 않아요. ' + (365 - r.workDays) + '일만 더 일하면 받을 수 있어요.';
+    BS.store('sv', { st: $('start').value, ls: $('last').value, w: w, b: b, l: l });
+  }
+
+  $('start').addEventListener('change', render);
+  $('last').addEventListener('change', render);
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

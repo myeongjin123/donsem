@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>육아휴직 급여 계산기 2026 - 받을셈</title>
+<meta name="description" content="2026년 기준 육아휴직 급여를 월별로 계산해요. 6+6 부모육아휴직제, 상한액·하한액 자동 적용.">
+<link rel="canonical" href="https://badeulsem.chamyeongjin62.workers.dev/parental-leave/">
+<meta property="og:title" content="육아휴직 급여 계산기 2026 - 받을셈">
+<meta property="og:description" content="쉬는 동안 매달 얼마, 총 얼마 받을까? 6+6 부모육아휴직제까지 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gothic+A1:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><circle cx="70" cy="60" r="46" fill="#FFD08A"></circle><circle cx="70" cy="60" r="34" fill="#FFC067"></circle><text x="70" y="72" text-anchor="middle" font-family="Jua, sans-serif" font-size="34" fill="#B4430A">₩</text></svg>
+    <small>육아휴직 급여 계산기</small>
+    <h1>아기랑 지내는 동안<br>얼마 받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="wage">내 월 통상임금</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3500000" aria-describedby="wh"><span>원</span></div>
+        <div class="hint" id="wh">기본급과 매달 고정으로 받는 수당의 합이에요. 성과급·야근수당은 빼요.</div>
+      </div>
+      <div class="f">
+        <div class="row"><span class="lab" id="ml">얼마나 쉴 거예요?</span>
+          <div class="stepper"><button type="button" id="dec" aria-label="한 달 줄이기">−</button><output id="mOut" aria-labelledby="ml">12개월</output><button type="button" id="inc" aria-label="한 달 늘리기">+</button></div>
+        </div>
+        <div class="pills" id="quick" role="group" aria-label="자주 쓰는 기간">
+          <button type="button" data-m="3">3개월</button><button type="button" data-m="6">6개월</button><button type="button" data-m="12">1년</button><button type="button" data-m="18">1년 반</button>
+        </div>
+      </div>
+      <label class="check" for="six"><input type="checkbox" id="six"><span><b>엄마 아빠 둘 다 쉬어요</b><br>아이가 생후 18개월 이내면 6+6 제도로 첫 6개월에 더 받아요</span></label>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k" id="tk">1년 동안 받을 셈</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="avg"></div>
+      <div class="vbars" id="bars" role="img" aria-label="달마다 받는 금액 막대그래프"></div>
+      <div class="vaxis" id="axis" aria-hidden="true"></div>
+      <dl class="figs">
+        <div><dt>평소 월급 대비</dt><dd id="ratio">-</dd></div>
+        <div><dt>상한에 걸린 달</dt><dd id="capped">-</dd></div>
+        <div><dt>가장 많이 받는 달</dt><dd id="peak">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>달마다 받는 돈</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>개월차</th><th>지급률</th><th>상한액</th><th>받는 돈</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>2026년 계산 기준</h2>
+    <div class="box"><ul>
+      <li>1~3개월차: 통상임금 100%, 월 최대 250만 원</li>
+      <li>4~6개월차: 통상임금 100%, 월 최대 200만 원</li>
+      <li>7개월차부터: 통상임금 80%, 월 최대 160만 원</li>
+      <li>모든 달 하한액은 월 70만 원이에요.</li>
+      <li>6+6 부모육아휴직제: 첫 6개월 상한이 250·250·300·350·400·450만 원으로 올라가요.</li>
+      <li>기본 1년, 부모가 각각 3개월 이상 쓰는 등 조건을 채우면 최대 1년 6개월이에요.</li>
+      <li>신청은 휴직 시작 1개월 뒤부터 끝난 뒤 12개월 안에 고용24에서 해요.</li>
+      <li>한부모 특례와 1개월 미만 일할 계산은 반영하지 않았어요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer>예상 금액이며 실제 지급액은 고용센터가 결정해요. 2026년 고용노동부 기준이에요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>받을 셈</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('pl') || {};
+  let months = saved.n || 12;
+  const six = $('six');
+  six.checked = !!saved.s;
+  const wage = BS.moneyInput($('wage'), render);
+  if (saved.w) wage.set(saved.w);
+
+  function label(n) { return n % 12 === 0 ? (n / 12) + '년' : (n > 12 ? '1년 ' + (n - 12) + '개월' : n + '개월'); }
+
+  function render() {
+    const w = wage.read();
+    $('mOut').textContent = months + '개월';
+    document.querySelectorAll('#quick button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.m === months)));
+    const p = BS.calc.parentalLeave(w, months, six.checked);
+    const total = p.reduce((a, r) => a + r.pay, 0);
+    const max = Math.max(...p.map(r => r.pay), 1);
+    $('tk').textContent = label(months) + ' 동안 받을 셈';
+    BS.countUp($('total'), total, BS.won);
+    BS.countUp($('stk'), total, BS.won);
+    $('avg').textContent = '한 달에 평균 ' + BS.manwon(total / months) + ' 원쯤이에요';
+    $('ratio').textContent = w ? Math.round(total / months / w * 100) + '%' : '-';
+    $('capped').textContent = p.filter(r => r.kind === '상한').length + '개월';
+    $('peak').textContent = BS.manwon(max) + ' 원';
+    const scale = six.checked ? 450e4 : 250e4;
+    BS.setVBars($('bars'), $('axis'), p.map(r => ({
+      pct: r.pay / scale * 100,
+      cls: r.m <= 3 || (six.checked && r.m <= 6) ? '' : (r.m <= 6 ? 'on' : 'dim'),
+      title: r.m + '개월차 ' + BS.won(r.pay),
+      label: String(r.m)
+    })));
+    $('rows').innerHTML = p.map(r => '<tr><td>' + r.m + '개월차</td><td>' + Math.round(r.rate * 100) + '%</td><td>' + BS.manwon(r.cap) + '원</td><td><b>' + BS.won(r.pay) + '</b></td></tr>').join('')
+      + '<tr><td><b>합계</b></td><td></td><td></td><td><b>' + BS.won(total) + '</b></td></tr>';
+    let tip = '';
+    if (months > 12) tip = '12개월을 넘기려면 부모가 각각 3개월 이상 휴직하는 등 조건을 채워야 해요.';
+    else if (!six.checked && w > 250e4) tip = '배우자도 휴직하고 아이가 생후 18개월 이내라면 위의 6+6을 켜 보세요. 첫 6개월에 더 받을 수 있어요.';
+    if (w && w < 70e4) tip = '통상임금이 하한액보다 낮아도 월 70만 원은 보장돼요.';
+    $('tip').textContent = tip;
+    BS.store('pl', { w: w, n: months, s: six.checked });
+  }
+
+  $('dec').addEventListener('click', () => { months = Math.max(1, months - 1); render(); });
+  $('inc').addEventListener('click', () => { months = Math.min(18, months + 1); render(); });
+  $('quick').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { months = +b.dataset.m; render(); } });
+  six.addEventListener('change', render);
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>
