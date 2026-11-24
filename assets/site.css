@@ -7,7 +7,7 @@
 :root{color-scheme:light;--bg:#FFF7EC;--ink:#2B2118;--mut:#5C4A3A;--card:#FFFFFF;--acc:#E8590C;--acc-ink:#B4430A;--soft:#FFE3B8;--soft2:#FFD08A;--wallet:#2B2118;--gold:#FFC067;--wmut:#F3DFC4;--track:#4A3B2E;--green:#DCEFE2;--pink:#FBDDE6;--line:#F0E2CC}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.6 "Gothic A1",system-ui,sans-serif;overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
 a{color:var(--acc-ink)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 max(18px,4vw)}
 .top{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -27,15 +27,15 @@ a{color:var(--acc-ink)}
 .hint{font-size:13px;color:var(--mut)}
 .money{display:flex;align-items:center;height:56px;border-radius:16px;background:var(--bg);padding:0 16px;border:2px solid var(--soft2)}
 .money:focus-within{border-color:var(--acc)}
-.money input{flex:1;border:0;outline:0;background:transparent;font:700 21px "Gothic A1",sans-serif;text-align:right;color:var(--ink);width:100%}
+.money input{flex:1;border:0;outline:0;background:transparent;font:700 21px "Noto Sans KR",sans-serif;text-align:right;color:var(--ink);width:100%}
 .money span{margin-left:6px;font-size:17px;font-weight:700;white-space:nowrap}
-input[type=date]{height:52px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;font:700 16px "Gothic A1",sans-serif;color:var(--ink);width:100%}
+input[type=date]{height:52px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;font:700 16px "Noto Sans KR",sans-serif;color:var(--ink);width:100%}
 input[type=date]:focus{outline:0;border-color:var(--acc)}
 .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px}
-.pills button{height:48px;border-radius:14px;border:0;background:var(--bg);font:700 15px "Gothic A1",sans-serif;color:var(--mut);cursor:pointer}
+.pills button{height:48px;border-radius:14px;border:0;background:var(--bg);font:700 15px "Noto Sans KR",sans-serif;color:var(--mut);cursor:pointer}
 .pills button[aria-pressed=true]{background:var(--acc);color:#fff}
 .stepper{display:flex;align-items:center;gap:6px}
-.stepper button{width:44px;height:44px;border-radius:14px;border:0;background:var(--bg);font:700 20px "Gothic A1",sans-serif;color:var(--ink);cursor:pointer}
+.stepper button{width:44px;height:44px;border-radius:14px;border:0;background:var(--bg);font:700 20px "Noto Sans KR",sans-serif;color:var(--ink);cursor:pointer}
 .stepper output{min-width:76px;text-align:center;font-weight:700;font-size:17px;white-space:nowrap}
 .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .check{display:flex;gap:12px;align-items:center;min-height:52px;border-radius:16px;background:var(--green);padding:10px 14px;cursor:pointer;font-size:14px;line-height:1.45}
