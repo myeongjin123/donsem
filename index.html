@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>받을셈 - 내가 받을 돈 계산기</title>
-<meta name="description" content="육아휴직 급여, 연차수당, 실업급여, 퇴직금, 주휴수당. 2026년 기준으로 내가 받을 돈을 바로 계산해요.">
+<meta name="description" content="연봉 실수령액, 4대보험, 주휴수당, 육아휴직 급여, 연차수당, 실업급여, 퇴직금, 3.3% 환급까지. 2026년 기준으로 내가 받을 돈을 바로 계산해요.">
 <link rel="canonical" href="https://badeulsem.com/">
 <meta property="og:title" content="받을셈 - 내가 받을 돈 계산기">
 <meta property="og:description" content="육아휴직 급여, 연차수당, 실업급여, 퇴직금을 2026년 기준으로 계산해요.">
@@ -31,8 +31,8 @@
 .biglist{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 .biglist .big{grid-column:span 2}
 .biglist .big:nth-child(-n+2){grid-column:span 3}
-@media(max-width:820px){.biglist{grid-template-columns:repeat(2,minmax(0,1fr))}.biglist .big,.biglist .big:nth-child(-n+2){grid-column:auto}.biglist .big:last-child{grid-column:span 2}}
-@media(max-width:600px){.biglist{grid-template-columns:minmax(0,1fr)}.biglist .big:last-child{grid-column:auto}}
+@media(max-width:820px){.biglist{grid-template-columns:repeat(2,minmax(0,1fr))}.biglist .big,.biglist .big:nth-child(-n+2){grid-column:auto}}
+@media(max-width:600px){.biglist{grid-template-columns:minmax(0,1fr)}}
 .big{min-height:150px;border-radius:24px;text-decoration:none;color:var(--ink);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
 .big b{font:400 24px "Jua",sans-serif}
 .big span{color:var(--mut);font-size:15px}
@@ -49,16 +49,19 @@
   <section class="homehero">
     <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="#FFC067"></circle><circle cx="60" cy="60" r="40" fill="#FFD08A"></circle><text x="60" y="76" text-anchor="middle" font-family="Jua, sans-serif" font-size="46" fill="#B4430A">₩</text></svg>
     <h1>회사가, 나라가<br>나한테 <em>얼마 줄 셈</em>인지</h1>
-    <p>육아휴직 급여부터 퇴직금까지. 2026년 기준으로 내가 받을 돈을 1분 안에 계산해요.</p>
+    <p>연봉 실수령액부터 퇴직금, 3.3% 환급까지. 2026년 기준으로 내가 받을 돈을 1분 안에 계산해요.</p>
   </section>
 
   <section id="all">
     <div class="biglist">
+      <a class="big" href="/salary/" style="background:#D7ECFA"><b>연봉 실수령액</b><span>세금 다 떼고 통장에 들어올 셈</span><em>계산하기 →</em></a>
+      <a class="big" href="/insurance/" style="background:#EDE3D6"><b>4대보험료</b><span>국민연금·건강보험, 월급에서 얼마 빠질 셈</span><em>계산하기 →</em></a>
+      <a class="big" href="/weekly-holiday-pay/" style="background:#FFF1A8"><b>주휴수당</b><span>알바 주급에 하루치 더 받을 셈</span><em>계산하기 →</em></a>
       <a class="big" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 매달 얼마, 총 얼마 받을까</span><em>계산하기 →</em></a>
       <a class="big" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>올해 연차는 며칠, 안 쓰면 얼마</span><em>계산하기 →</em></a>
       <a class="big" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마씩, 며칠 동안 받을까</span><em>계산하기 →</em></a>
-      <a class="big" href="/weekly-holiday-pay/" style="background:#FFF1A8"><b>주휴수당</b><span>알바 주급에 하루치 더 받을 셈</span><em>계산하기 →</em></a>
       <a class="big" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+      <a class="big" href="/freelancer-tax/" style="background:#E6F4D7"><b>3.3% 환급</b><span>프리랜서 3.3%, 5월에 돌려받을 셈</span><em>계산하기 →</em></a>
     </div>
   </section>
 

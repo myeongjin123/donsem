@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JHD2BN15JX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JHD2BN15JX');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프리랜서 3.3% 환급 계산기 - 받을셈</title>
+<meta name="description" content="3.3% 떼인 프리랜서 세금, 5월 종합소득세 신고 때 얼마 돌려받을까? 단순경비율로 예상 환급액을 계산해요.">
+<link rel="canonical" href="https://badeulsem.com/freelancer-tax/">
+<meta property="og:title" content="프리랜서 3.3% 환급 계산기 - 받을셈">
+<meta property="og:description" content="3.3% 떼인 프리랜서 세금, 5월 종합소득세 신고 때 얼마 돌려받을까? 단순경비율로 예상 환급액을 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#E6F4D7">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="26" y="22" width="68" height="84" rx="10" fill="#C2E3A3"></rect><rect x="36" y="36" width="48" height="6" rx="3" fill="#5E8F35"></rect><rect x="36" y="50" width="36" height="6" rx="3" fill="#5E8F35"></rect><circle cx="84" cy="84" r="20" fill="#FFC067"></circle><text x="84" y="91" text-anchor="middle" font-family="Jua, sans-serif" font-size="16" fill="#B4430A">3.3</text></svg>
+    <small style="color:#3F6B1F">프리랜서 3.3% 환급 계산기</small>
+    <h1>3.3% 떼인 돈,<br>5월에 얼마 돌려받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="inc">작년에 받은 돈 합계 (3.3% 떼기 전)</label>
+        <div class="money"><input id="inc" inputmode="numeric" value="24000000"><span>원</span></div>
+        <div class="hint">통장에 들어온 금액이 아니라 계약 금액(세전) 기준이에요.</div>
+      </div>
+      <div class="row">
+        <span class="lab" id="rl">경비율</span>
+        <div class="stepper"><button type="button" id="rdec" aria-label="경비율 낮추기">−</button><output id="rOut" aria-labelledby="rl">64.1%</output><button type="button" id="rinc" aria-label="경비율 높이기">+</button></div>
+      </div>
+      <div class="hint" style="margin-top:-10px">대부분의 프리랜서(업종코드 940909)는 64.1%예요. 내 업종 경비율은 홈택스 업종별 경비율 조회에서 확인할 수 있어요.</div>
+      <div class="row">
+        <span class="lab" id="fl">부양가족 (나 포함)</span>
+        <div class="stepper"><button type="button" id="fdec" aria-label="한 명 줄이기">−</button><output id="fOut" aria-labelledby="fl">1명</output><button type="button" id="finc" aria-label="한 명 늘리기">+</button></div>
+      </div>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k" id="tk">5월에 돌려받을 셈</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="hbars" id="bars" role="img" aria-label="낸 세금과 실제 세금 비교 막대그래프"></div>
+      <dl class="figs">
+        <div><dt>인정받는 경비</dt><dd id="f1">-</dd></div>
+        <div><dt>소득금액</dt><dd id="f2">-</dd></div>
+        <div><dt>실제 세금</dt><dd id="f3">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>계산 과정</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>단계</th><th>계산</th><th>금액</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>계산 기준</h2>
+    <div class="box"><ul>
+      <li>3.3%는 소득세 3% + 지방소득세 0.3%를 미리 낸 거예요. 5월 종합소득세 신고 때 실제 세금과 비교해서 더 냈으면 돌려받아요.</li>
+      <li>장부 없이 신고하면(추계신고) 수입에 업종별 경비율을 곱한 만큼을 경비로 인정받아요.</li>
+      <li>64.1%(940909)는 수입 4,000만 원까지 적용하고, 넘는 부분은 49.7%로 계산했어요. 경비율을 바꾸면 넘는 부분도 같은 비율로 계산해요.</li>
+      <li>직전 연도 수입이 3,600만 원 이상이면 단순경비율을 못 쓰고 기준경비율이나 장부 신고를 해야 할 수 있어요.</li>
+      <li>본인·가족 1명당 150만 원 공제, 표준세액공제 7만 원을 넣었어요. 국민연금·건강보험료 공제, 노란우산공제 등은 빠졌어요.</li>
+      <li>다른 소득(근로소득 등)이 함께 있으면 합쳐서 계산해야 해서 결과가 크게 달라져요.</li>
+      <li>신고 기간은 매년 5월 1일~31일, 홈택스에서 할 수 있어요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/salary/" style="background:#D7ECFA"><b>연봉 실수령액</b><span>세금 떼고 통장에 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/insurance/" style="background:#EDE3D6"><b>4대보험료</b><span>월급에서 얼마 빠질까</span><em>계산하기 →</em></a>
+      <a class="tile" href="/weekly-holiday-pay/" style="background:#FFF1A8"><b>주휴수당</b><span>알바 주급에 하루치 더</span><em>계산하기 →</em></a>
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer><nav class="flinks"><a href="/about/">사이트 소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a></nav>예상 금액이에요. 다른 소득, 장부 작성 여부, 공제 항목에 따라 실제 세금은 달라져요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>예상 환급</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('ft') || {};
+  let rate = saved.r || 64.1, fam = saved.f || 1;
+  const inc = BS.moneyInput($('inc'), render);
+  if (saved.i) inc.set(saved.i);
+  function render() {
+    const i = inc.read();
+    $('rOut').textContent = rate.toFixed(1) + '%';
+    $('fOut').textContent = fam + '명';
+    const over = Math.abs(rate - 64.1) < 0.05 ? 0.497 : rate / 100;
+    const r = BS.calc.freelancer(i, rate / 100, over, fam);
+    const refund = r.refund;
+    $('tk').textContent = refund >= 0 ? '5월에 돌려받을 셈' : '5월에 더 내야 할 셈';
+    BS.countUp($('total'), Math.abs(refund), BS.won);
+    BS.countUp($('stk'), refund, BS.won);
+    $('sub').textContent = '3.3%로 낸 ' + BS.won(r.paid) + ' 중 실제 세금은 ' + BS.won(r.finalTax);
+    $('f1').textContent = BS.manwon(r.exp) + ' 원';
+    $('f2').textContent = BS.manwon(r.profit) + ' 원';
+    $('f3').textContent = BS.manwon(r.finalTax) + ' 원';
+    const mx = Math.max(1, r.paid, r.finalTax);
+    BS.setHBars($('bars'), [
+      { label: '미리 낸 세금', pct: r.paid / mx * 100, text: BS.manwon(r.paid) },
+      { label: '실제 세금', pct: r.finalTax / mx * 100, text: BS.manwon(r.finalTax) },
+      { label: refund >= 0 ? '돌려받는 돈' : '더 낼 돈', pct: Math.abs(refund) / mx * 100, text: BS.manwon(Math.abs(refund)) }
+    ]);
+    $('rows').innerHTML = [
+      ['수입', '3.3% 떼기 전 합계', BS.won(i)],
+      ['경비', i > 4e7 && over !== rate / 100 ? '4,000만 × 64.1% + 넘는 부분 × 49.7%' : '수입 × ' + rate.toFixed(1) + '%', '− ' + BS.won(r.exp)],
+      ['소득금액', '수입 − 경비', BS.won(r.profit)],
+      ['과세표준', '− 150만 × ' + fam + '명', BS.won(r.taxBase)],
+      ['산출세액', '기본세율 6~45%', BS.won(r.calcTax)],
+      ['실제 세금', '− 표준세액공제 7만, + 지방소득세 10%', BS.won(r.finalTax)],
+      ['미리 낸 세금', '수입 × 3.3%', BS.won(r.paid)],
+      [refund >= 0 ? '돌려받는 돈' : '더 낼 돈', '미리 낸 세금 − 실제 세금', BS.won(Math.abs(refund))]
+    ].map(c => '<tr><td>' + c[0] + '</td><td>' + c[1] + '</td><td><b>' + c[2] + '</b></td></tr>').join('');
+    let tip = '';
+    if (i >= 36e6) tip = '수입이 3,600만 원 이상이면 다음 해부터 단순경비율을 못 쓸 수 있어요. 작년 수입이 3,600만 원 이상이었다면 장부를 쓰거나 세무사와 상담해 보세요.';
+    else if (refund > 0) tip = '홈택스에서 5월에 신고해야 돌려받을 수 있어요. 신고하지 않으면 자동으로 돌려주지 않아요.';
+    $('tip').textContent = tip;
+    BS.store('ft', { i: i, r: rate, f: fam });
+  }
+  $('rdec').addEventListener('click', () => { rate = Math.max(30, Math.round((rate - 0.5) * 10) / 10); render(); });
+  $('rinc').addEventListener('click', () => { rate = Math.min(95, Math.round((rate + 0.5) * 10) / 10); render(); });
+  $('fdec').addEventListener('click', () => { fam = Math.max(1, fam - 1); render(); });
+  $('finc').addEventListener('click', () => { fam = Math.min(8, fam + 1); render(); });
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

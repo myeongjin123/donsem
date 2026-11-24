@@ -58,6 +58,63 @@
       return { weekHours: weekHours, eligible: eligible, holidayHours: holidayHours, holiday: holiday, base: base, weekly: weekly, monthHours: monthHours, monthly: monthly, monthlyHoliday: Math.round(holidayHours * 365 / 7 / 12 * wage) };
     },
 
+    // 4대보험 (2026년, 근로자 부담): 국민연금 4.75%(기준소득월액 41만~659만, 천원 미만 버림),
+    // 건강 3.595%, 장기요양 = 건강보험료 × 13.14%, 고용 0.9%. 각 보험료는 10원 미만 버림
+    insurance: function (monthly, nontax) {
+      var base = Math.max(0, monthly - (nontax || 0));
+      var t10 = function (v) { return Math.floor(v / 10) * 10; };
+      var npBase = Math.min(6590000, Math.max(410000, Math.floor(base / 1000) * 1000));
+      var pension = t10(npBase * 0.0475);
+      var health = t10(base * 0.03595);
+      var care = t10(health * 0.1314);
+      var employ = t10(base * 0.009);
+      return { base: base, pension: pension, health: health, care: care, employ: employ, total: pension + health + care + employ, pensionCapped: base > 6590000 };
+    },
+
+    // 종합소득세·근로소득세 기본세율 (2023년 개정, 2026년 적용)
+    taxByBracket: function (taxBase) {
+      var B = [[14e6, .06, 0], [50e6, .15, 1.26e6], [88e6, .24, 5.76e6], [150e6, .35, 15.44e6], [300e6, .38, 19.94e6], [500e6, .40, 25.94e6], [1e9, .42, 35.94e6], [Infinity, .45, 65.94e6]];
+      if (taxBase <= 0) return 0;
+      for (var i = 0; i < B.length; i++) if (taxBase <= B[i][0]) return taxBase * B[i][1] - B[i][2];
+      return 0;
+    },
+
+    // 연봉 실수령액: 4대보험 + 근로소득세(연간 계산 ÷ 12, 간이세액표에 가깝게 추정) + 지방소득세 10%
+    salary: function (annual, nontaxMonthly, family) {
+      var monthly = annual / 12;
+      var ins = calc.insurance(monthly, nontaxMonthly);
+      var gross = Math.max(0, (monthly - nontaxMonthly) * 12);
+      var ded;
+      if (gross <= 5e6) ded = gross * .7;
+      else if (gross <= 15e6) ded = 3.5e6 + (gross - 5e6) * .4;
+      else if (gross <= 45e6) ded = 7.5e6 + (gross - 15e6) * .15;
+      else if (gross <= 1e8) ded = 12e6 + (gross - 45e6) * .05;
+      else ded = 14.75e6 + (gross - 1e8) * .02;
+      ded = Math.min(ded, 20e6);
+      var taxBase = gross - ded - 1.5e6 * Math.max(1, family) - ins.pension * 12 - (ins.health + ins.care + ins.employ) * 12;
+      var calcTax = calc.taxByBracket(taxBase);
+      var credit = calcTax <= 1.3e6 ? calcTax * .55 : 715000 + (calcTax - 1.3e6) * .3;
+      var limit = gross <= 33e6 ? 740000 : gross <= 70e6 ? Math.max(660000, 740000 - (gross - 33e6) * .008) : gross <= 120e6 ? Math.max(500000, 660000 - (gross - 70e6) * .5) : Math.max(200000, 500000 - (gross - 120e6) * .5);
+      credit = Math.min(credit, limit);
+      var yearTax = Math.max(0, calcTax - credit);
+      var incomeTax = Math.floor(yearTax / 12 / 10) * 10;
+      var localTax = Math.floor(incomeTax * .1 / 10) * 10;
+      var deduct = ins.total + incomeTax + localTax;
+      return { monthly: monthly, ins: ins, incomeTax: incomeTax, localTax: localTax, deduct: deduct, net: monthly - deduct, netYear: (monthly - deduct) * 12 };
+    },
+
+    // 프리랜서 3.3%: 단순경비율 추계 (기본율은 수입 4,000만 원까지, 넘는 부분은 초과율)
+    freelancer: function (income, rate, overRate, family) {
+      var exp = Math.min(income, 4e7) * rate + Math.max(0, income - 4e7) * overRate;
+      var profit = Math.max(0, income - exp);
+      var taxBase = Math.max(0, profit - 1.5e6 * Math.max(1, family));
+      var calcTax = calc.taxByBracket(taxBase);
+      var tax = Math.max(0, calcTax - 70000);
+      var finalTax = Math.floor(tax) + Math.floor(tax * .1);
+      var paid = Math.floor(income * .03) + Math.floor(income * .003);
+      return { exp: exp, profit: profit, taxBase: taxBase, calcTax: calcTax, finalTax: finalTax, paid: paid, refund: paid - finalTax };
+    },
+
     // 퇴직금: 1일 평균임금 × 30 × 재직일수 ÷ 365
     // 1일 평균임금 = (퇴직 전 3개월 임금 + 연 상여금 × 3/12 + 연차수당 × 3/12) ÷ 그 3개월의 달력 일수
     severance: function (start, lastDay, monthly, bonus, leavePay) {

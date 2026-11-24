@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JHD2BN15JX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JHD2BN15JX');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연봉 실수령액 계산기 2026 - 받을셈</title>
+<meta name="description" content="2026년 4대보험 요율과 근로소득세로 연봉 실수령액을 계산해요. 연봉별 월급 실수령액 표까지.">
+<link rel="canonical" href="https://badeulsem.com/salary/">
+<meta property="og:title" content="연봉 실수령액 계산기 2026 - 받을셈">
+<meta property="og:description" content="2026년 4대보험 요율과 근로소득세로 연봉 실수령액을 계산해요. 연봉별 월급 실수령액 표까지.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#D7ECFA">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="24" y="30" width="80" height="62" rx="12" fill="#A9D3F2"></rect><rect x="24" y="44" width="80" height="12" fill="#1D5E8C"></rect><circle cx="88" cy="78" r="18" fill="#FFC067"></circle><text x="88" y="85" text-anchor="middle" font-family="Jua, sans-serif" font-size="18" fill="#B4430A">₩</text></svg>
+    <small style="color:#1D5E8C">연봉 실수령액 계산기</small>
+    <h1>세금 다 떼고 나면<br>통장에 얼마 받을 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="annual">세전 연봉</label>
+        <div class="money"><input id="annual" inputmode="numeric" value="40000000"><span>원</span></div>
+        <div class="pills" id="quick" role="group" aria-label="자주 찾는 연봉">
+          <button type="button" data-v="30000000">3천</button><button type="button" data-v="40000000">4천</button><button type="button" data-v="50000000">5천</button><button type="button" data-v="70000000">7천</button><button type="button" data-v="100000000">1억</button>
+        </div>
+      </div>
+      <div class="f">
+        <label for="nontax">한 달 비과세 금액</label>
+        <div class="money"><input id="nontax" inputmode="numeric" value="200000"><span>원</span></div>
+        <div class="hint">밥값(식대)은 보통 월 20만 원까지 세금이 붙지 않아요.</div>
+      </div>
+      <div class="row">
+        <span class="lab" id="fl">부양가족 (나 포함)</span>
+        <div class="stepper"><button type="button" id="dec" aria-label="한 명 줄이기">−</button><output id="fOut" aria-labelledby="fl">1명</output><button type="button" id="inc" aria-label="한 명 늘리기">+</button></div>
+      </div>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k" id="tk">한 달에 받을 셈</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="hbars" id="bars" role="img" aria-label="월급에서 빠지는 항목 막대그래프"></div>
+      <dl class="figs">
+        <div><dt>월 세전</dt><dd id="f1">-</dd></div>
+        <div><dt>빠지는 돈</dt><dd id="f2">-</dd></div>
+        <div><dt>실수령 비율</dt><dd id="f3">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>연봉별 월 실수령액</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>세전 연봉</th><th>월 세전</th><th>4대보험</th><th>세금</th><th>월 실수령액</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <p class="hint" id="rowsNote" style="margin-top:8px"></p>
+  </section>
+
+  <section class="sec">
+    <h2>2026년 계산 기준</h2>
+    <div class="box"><ul>
+      <li>국민연금 4.75% (보험료 기준 월 41만~659만 원), 건강보험 3.595%, 장기요양 = 건강보험료 × 13.14%, 고용보험 0.9%</li>
+      <li>비과세 금액은 4대보험과 소득세 계산에서 모두 빠져요.</li>
+      <li>소득세는 1년치 세금(근로소득공제, 본인·가족 1명당 150만 원 공제, 근로소득세액공제)을 계산해 12로 나눈 추정값이에요. 회사가 쓰는 간이세액표와 월 몇천~몇만 원 차이 날 수 있어요.</li>
+      <li>지방소득세는 소득세의 10%예요.</li>
+      <li>자녀세액공제, 연말정산 공제(카드, 의료비 등)는 반영하지 않았어요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/insurance/" style="background:#EDE3D6"><b>4대보험료</b><span>월급에서 얼마 빠질까</span><em>계산하기 →</em></a>
+      <a class="tile" href="/weekly-holiday-pay/" style="background:#FFF1A8"><b>주휴수당</b><span>알바 주급에 하루치 더</span><em>계산하기 →</em></a>
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+      <a class="tile" href="/freelancer-tax/" style="background:#E6F4D7"><b>3.3% 환급</b><span>5월에 얼마 돌려받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer><nav class="flinks"><a href="/about/">사이트 소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a></nav>예상 금액이에요. 회사가 고른 원천징수 비율(80·100·120%)과 공제 항목에 따라 달라질 수 있어요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>월 실수령액</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('sa') || {};
+  let fam = saved.f || 1;
+  const annual = BS.moneyInput($('annual'), render), nontax = BS.moneyInput($('nontax'), render);
+  if (saved.a) annual.set(saved.a);
+  if (saved.n != null) nontax.set(saved.n);
+  function render() {
+    const a = annual.read(), n = nontax.read();
+    $('fOut').textContent = fam + '명';
+    document.querySelectorAll('#quick button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.v === a)));
+    const r = BS.calc.salary(a, n, fam);
+    BS.countUp($('total'), r.net, BS.won);
+    BS.countUp($('stk'), r.net, BS.won);
+    $('sub').textContent = '1년이면 ' + BS.manwon(r.netYear) + ' 원이에요';
+    $('f1').textContent = BS.manwon(r.monthly) + ' 원';
+    $('f2').textContent = BS.manwon(r.deduct) + ' 원';
+    $('f3').textContent = a ? Math.round(r.net / r.monthly * 100) + '%' : '-';
+    const items = [['국민연금', r.ins.pension], ['건강보험', r.ins.health], ['장기요양', r.ins.care], ['고용보험', r.ins.employ], ['소득세', r.incomeTax], ['지방소득세', r.localTax]];
+    const mx = Math.max(1, ...items.map(i => i[1]));
+    BS.setHBars($('bars'), items.map(i => ({ label: i[0], pct: i[1] / mx * 100, text: BS.manwon(i[1]) })));
+    const rows = [];
+    for (let v = 25e6; v <= 100e6; v += (v < 60e6 ? 5e6 : 10e6)) {
+      const x = BS.calc.salary(v, n, fam);
+      const near = Math.abs(v - a) < (v < 60e6 ? 2.5e6 : 5e6);
+      rows.push('<tr' + (near ? ' style="background:#D7ECFA"' : '') + '><td>' + (v / 1e4).toLocaleString('ko-KR') + '만</td><td>' + BS.manwon(x.monthly) + '</td><td>' + BS.manwon(x.ins.total) + '</td><td>' + BS.manwon(x.incomeTax + x.localTax) + '</td><td><b>' + BS.won(x.net) + '</b></td></tr>');
+    }
+    $('rows').innerHTML = rows.join('');
+    $('rowsNote').textContent = '비과세 월 ' + BS.manwon(n) + ' 원, 부양가족 ' + fam + '명 기준이에요.';
+    let tip = '';
+    if (r.ins.pensionCapped) tip = '월급이 659만 원을 넘어서 국민연금은 659만 원까지만 계산돼요.';
+    else if (n < 200000) tip = '회사에서 식대를 따로 주면 월 20만 원까지 비과세라 실수령액이 늘어나요.';
+    $('tip').textContent = tip;
+    BS.store('sa', { a: a, n: n, f: fam });
+  }
+  $('dec').addEventListener('click', () => { fam = Math.max(1, fam - 1); render(); });
+  $('inc').addEventListener('click', () => { fam = Math.min(8, fam + 1); render(); });
+  $('quick').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { annual.set(+b.dataset.v); render(); } });
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

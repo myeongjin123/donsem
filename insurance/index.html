@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JHD2BN15JX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JHD2BN15JX');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4대보험료 계산기 2026 - 받을셈</title>
+<meta name="description" content="2026년 국민연금 4.75%, 건강보험 3.595%, 장기요양, 고용보험 요율로 월급에서 빠지는 4대보험료를 계산해요.">
+<link rel="canonical" href="https://badeulsem.com/insurance/">
+<meta property="og:title" content="4대보험료 계산기 2026 - 받을셈">
+<meta property="og:description" content="2026년 국민연금 4.75%, 건강보험 3.595%, 장기요양, 고용보험 요율로 월급에서 빠지는 4대보험료를 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#EDE3D6">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 20 L96 34 V60 C96 82 80 96 60 102 C40 96 24 82 24 60 V34 Z" fill="#D9C4A8"></path><path d="M60 32 L86 42 V60 C86 76 75 86 60 91 C45 86 34 76 34 60 V42 Z" fill="#8C6A47"></path><text x="60" y="72" text-anchor="middle" font-family="Jua, sans-serif" font-size="24" fill="#FFF7EC">4</text></svg>
+    <small style="color:#6B4A2B">4대보험료 계산기</small>
+    <h1>월급에서 보험료로<br>얼마 나갈 셈?</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="wage">세전 월급</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="3000000"><span>원</span></div>
+      </div>
+      <div class="f">
+        <label for="nontax">한 달 비과세 금액</label>
+        <div class="money"><input id="nontax" inputmode="numeric" value="0"><span>원</span></div>
+        <div class="hint">식대 같은 비과세 금액에는 보험료가 붙지 않아요. 모르면 0으로 두세요.</div>
+      </div>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k" id="tk">내 월급에서 빠지는 보험료</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="hbars" id="bars" role="img" aria-label="보험별 금액 막대그래프"></div>
+      <dl class="figs">
+        <div><dt>회사도 내는 돈</dt><dd id="f1">-</dd></div>
+        <div><dt>1년이면</dt><dd id="f2">-</dd></div>
+        <div><dt>월급 대비</dt><dd id="f3">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>월급별 4대보험료 (근로자 부담)</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>세전 월급</th><th>국민연금</th><th>건강·요양</th><th>고용</th><th>합계</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>2026년 요율</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>보험</th><th>전체</th><th>내가 내는 몫</th></tr></thead>
+      <tbody>
+        <tr><td>국민연금</td><td>9.5%</td><td>4.75%</td></tr>
+        <tr><td>건강보험</td><td>7.19%</td><td>3.595%</td></tr>
+        <tr><td>장기요양보험</td><td>건강보험료의 13.14%</td><td>절반</td></tr>
+        <tr><td>고용보험</td><td>1.8% + 회사 추가분</td><td>0.9%</td></tr>
+        <tr><td>산재보험</td><td>업종별</td><td>0% (회사가 전부)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box" style="margin-top:12px"><ul>
+      <li>국민연금은 월 41만~659만 원 사이에서만 계산해요 (2026년 7월~2027년 6월). 659만 원을 넘어도 보험료는 같아요.</li>
+      <li>국민연금은 2033년까지 해마다 0.5%포인트씩 올라 13%가 돼요.</li>
+      <li>회사 몫의 고용보험은 회사 규모에 따라 0.25~0.85%가 더 붙어요. 여기선 150인 미만 기준(1.15%)으로 계산했어요.</li>
+      <li>보험료는 10원 미만을 버려서 계산했어요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/salary/" style="background:#D7ECFA"><b>연봉 실수령액</b><span>세금 떼고 통장에 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/weekly-holiday-pay/" style="background:#FFF1A8"><b>주휴수당</b><span>알바 주급에 하루치 더</span><em>계산하기 →</em></a>
+      <a class="tile" href="/parental-leave/" style="background:#FFE3B8"><b>육아휴직 급여</b><span>쉬는 동안 총 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+      <a class="tile" href="/freelancer-tax/" style="background:#E6F4D7"><b>3.3% 환급</b><span>5월에 얼마 돌려받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer><nav class="flinks"><a href="/about/">사이트 소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a></nav>예상 금액이에요. 실제 보험료는 신고된 보수월액에 따라 달라질 수 있어요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>4대보험료</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('in') || {};
+  const wage = BS.moneyInput($('wage'), render), nontax = BS.moneyInput($('nontax'), render);
+  if (saved.w) wage.set(saved.w);
+  if (saved.n != null) nontax.set(saved.n);
+  function render() {
+    const w = wage.read(), n = nontax.read();
+    const r = BS.calc.insurance(w, n);
+    const company = r.pension + r.health + r.care + Math.floor(r.base * 0.0115 / 10) * 10;
+    BS.countUp($('total'), r.total, BS.won);
+    BS.countUp($('stk'), r.total, BS.won);
+    $('sub').textContent = '보험료를 빼면 ' + BS.won(w - r.total) + ' (세금 빼기 전)';
+    $('f1').textContent = BS.manwon(company) + ' 원';
+    $('f2').textContent = BS.manwon(r.total * 12) + ' 원';
+    $('f3').textContent = w ? (Math.round(r.total / w * 1000) / 10) + '%' : '-';
+    const items = [['국민연금', r.pension], ['건강보험', r.health], ['장기요양', r.care], ['고용보험', r.employ]];
+    const mx = Math.max(1, ...items.map(i => i[1]));
+    BS.setHBars($('bars'), items.map(i => ({ label: i[0], pct: i[1] / mx * 100, text: BS.won(i[1]) })));
+    const rows = [];
+    [2156880, 2500000, 3000000, 3500000, 4000000, 5000000, 6000000, 7000000].forEach(v => {
+      const x = BS.calc.insurance(v, 0);
+      rows.push('<tr' + (Math.abs(v - w) < 250000 ? ' style="background:#EDE3D6"' : '') + '><td>' + BS.manwon(v) + (v === 2156880 ? ' (최저)' : '') + '</td><td>' + BS.won(x.pension) + '</td><td>' + BS.won(x.health + x.care) + '</td><td>' + BS.won(x.employ) + '</td><td><b>' + BS.won(x.total) + '</b></td></tr>');
+    });
+    $('rows').innerHTML = rows.join('');
+    $('tip').textContent = r.pensionCapped ? '월급이 659만 원을 넘어서 국민연금은 659만 원 기준(313,020원)으로 고정돼요.' : '';
+    BS.store('in', { w: w, n: n });
+  }
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>
