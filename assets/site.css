@@ -29,9 +29,9 @@ a{color:var(--acc-ink)}
 .money:focus-within{border-color:var(--acc)}
 .money input{flex:1;border:0;outline:0;background:transparent;font:700 21px "Noto Sans KR",sans-serif;text-align:right;color:var(--ink);width:100%}
 .money span{margin-left:6px;font-size:17px;font-weight:700;white-space:nowrap}
-input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;text-align:left;height:52px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;font:700 16px "Noto Sans KR",sans-serif;color:var(--ink);width:100%}
-input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}
-input[type=date]::-webkit-datetime-edit{padding:0}
+input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;text-align:center;height:52px;line-height:48px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;font:700 16px "Noto Sans KR",sans-serif;color:var(--ink);width:100%}
+input[type=date]::-webkit-date-and-time-value{text-align:center;margin:0;line-height:48px}
+input[type=date]::-webkit-datetime-edit{padding:0;display:flex;justify-content:center;align-items:center;height:100%}
 input[type=date]:focus{outline:0;border-color:var(--acc)}
 .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px}
 .pills button{height:48px;border-radius:14px;border:0;background:var(--bg);font:700 15px "Noto Sans KR",sans-serif;color:var(--mut);cursor:pointer}
