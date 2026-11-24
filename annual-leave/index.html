@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=2">
 </head>
 <body>
 <div class="wrap">
@@ -39,11 +39,11 @@
     <form class="card" id="f" autocomplete="off">
       <div class="f">
         <label for="start">입사일</label>
-        <input type="date" id="start" value="2022-03-02">
+        <div class="datebox"><input type="date" id="start" value="2022-03-02"></div>
       </div>
       <div class="f">
         <label for="ref">기준일 (오늘 또는 퇴사일)</label>
-        <input type="date" id="ref">
+        <div class="datebox"><input type="date" id="ref"></div>
       </div>
       <div class="f">
         <label for="wage">월 통상임금</label>
@@ -112,7 +112,7 @@
 </div>
 <div class="stick" aria-hidden="true"><span>연차수당</span><b id="stk">0원</b></div>
 
-<script src="/assets/site.js"></script>
+<script src="/assets/site.js?v=2"></script>
 <script>
 {
   const $ = id => document.getElementById(id);

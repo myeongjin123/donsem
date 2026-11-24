@@ -29,10 +29,6 @@ a{color:var(--acc-ink)}
 .money:focus-within{border-color:var(--acc)}
 .money input{flex:1;border:0;outline:0;background:transparent;font:700 21px "Noto Sans KR",sans-serif;text-align:right;color:var(--ink);width:100%}
 .money span{margin-left:6px;font-size:17px;font-weight:700;white-space:nowrap}
-input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;text-align:center;height:52px;line-height:48px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;font:700 16px "Noto Sans KR",sans-serif;color:var(--ink);width:100%}
-input[type=date]::-webkit-date-and-time-value{text-align:center;margin:0;line-height:48px}
-input[type=date]::-webkit-datetime-edit{padding:0;display:flex;justify-content:center;align-items:center;height:100%}
-input[type=date]:focus{outline:0;border-color:var(--acc)}
 .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px}
 .pills button{height:48px;border-radius:14px;border:0;background:var(--bg);font:700 15px "Noto Sans KR",sans-serif;color:var(--mut);cursor:pointer}
 .pills button[aria-pressed=true]{background:var(--acc);color:#fff}
@@ -95,3 +91,8 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--mut)}
 .pct:focus-within{border-color:var(--acc)}
 .pct input{width:56px;border:0;outline:0;background:transparent;text-align:right;font:700 17px "Noto Sans KR",sans-serif;color:var(--ink);padding:0}
 .pct span{font-weight:700;font-size:17px}
+.datebox{display:flex;align-items:center;justify-content:center;height:52px;border-radius:16px;background:var(--bg);border:2px solid var(--soft2);padding:0 14px;overflow:hidden}
+.datebox:focus-within{border-color:var(--acc)}
+.datebox input[type=date]{-webkit-appearance:none;appearance:none;display:block;width:100%;min-width:0;max-width:100%;height:auto;margin:0;padding:0;border:0;outline:0;background:transparent;text-align:center;font:700 17px "Noto Sans KR",sans-serif;color:var(--ink)}
+.datebox input[type=date]::-webkit-date-and-time-value{text-align:center;margin:0}
+.datebox input[type=date]::-webkit-datetime-edit{padding:0}

@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=2">
 </head>
 <body>
 <div class="wrap">
@@ -39,11 +39,11 @@
     <form class="card" id="f" autocomplete="off">
       <div class="f">
         <label for="start">입사일</label>
-        <input type="date" id="start" value="2021-04-01">
+        <div class="datebox"><input type="date" id="start" value="2021-04-01"></div>
       </div>
       <div class="f">
         <label for="last">마지막 근무일</label>
-        <input type="date" id="last" value="2026-09-30">
+        <div class="datebox"><input type="date" id="last" value="2026-09-30"></div>
       </div>
       <div class="f">
         <label for="wage">퇴사 전 3개월 평균 월급 (세전)</label>
@@ -115,7 +115,7 @@
 </div>
 <div class="stick" aria-hidden="true"><span>퇴직금</span><b id="stk">0원</b></div>
 
-<script src="/assets/site.js"></script>
+<script src="/assets/site.js?v=2"></script>
 <script>
 {
   const $ = id => document.getElementById(id);
