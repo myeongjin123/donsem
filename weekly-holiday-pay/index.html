@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주휴수당 계산기 2026 - 받을셈</title>
+<meta name="description" content="2026년 최저시급 10,320원 기준 주휴수당 계산기. 시급과 근무시간만 넣으면 주휴수당, 주급, 월급을 바로 계산해요.">
+<link rel="canonical" href="https://badeulsem.com/weekly-holiday-pay/">
+<meta property="og:title" content="주휴수당 계산기 2026 - 받을셈">
+<meta property="og:description" content="알바 주휴수당 얼마? 시급과 근무시간으로 주급·월급까지 계산해요.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gothic+A1:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/"><i>셈</i><b>받을셈</b></a>
+    <a class="toplink" href="/">계산기 전체</a>
+  </header>
+
+  <section class="hero" style="background:#FFF1A8">
+    <svg class="coin" viewBox="0 0 120 120" aria-hidden="true"><rect x="22" y="34" width="96" height="66" rx="12" fill="#FFE066"></rect><g fill="#C9A800"><rect x="32" y="48" width="10" height="40" rx="3"></rect><rect x="46" y="48" width="10" height="40" rx="3"></rect><rect x="60" y="48" width="10" height="40" rx="3"></rect><rect x="74" y="48" width="10" height="40" rx="3"></rect><rect x="88" y="48" width="10" height="40" rx="3"></rect></g><rect x="102" y="48" width="10" height="40" rx="3" fill="#E8590C"></rect></svg>
+    <small style="color:#7A6200">주휴수당 계산기</small>
+    <h1>일주일 열심히 했으니<br>하루치 더 받을 셈</h1>
+  </section>
+
+  <div class="grid">
+    <form class="card" id="f" autocomplete="off">
+      <div class="f">
+        <label for="wage">시급</label>
+        <div class="money"><input id="wage" inputmode="numeric" value="10320"><span>원</span></div>
+        <div class="hint">2026년 최저시급은 10,320원이에요.</div>
+      </div>
+      <div class="row">
+        <span class="lab" id="hl">하루에 일하는 시간</span>
+        <div class="stepper"><button type="button" id="hdec" aria-label="30분 줄이기">−</button><output id="hOut" aria-labelledby="hl">8시간</output><button type="button" id="hinc" aria-label="30분 늘리기">+</button></div>
+      </div>
+      <div class="f">
+        <span class="lab">일주일에 일하는 날</span>
+        <div class="pills" id="days" role="group" aria-label="일주일에 일하는 날">
+          <button type="button" data-d="1">1일</button><button type="button" data-d="2">2일</button><button type="button" data-d="3">3일</button><button type="button" data-d="4">4일</button><button type="button" data-d="5">5일</button><button type="button" data-d="6">6일</button>
+        </div>
+      </div>
+      <label class="check" for="perfect"><input type="checkbox" id="perfect" checked><span><b>이번 주 정해진 날 다 나갔어요</b><br>약속한 근무일에 빠지지 않아야 주휴수당이 생겨요</span></label>
+    </form>
+
+    <section class="wallet" aria-live="polite">
+      <div class="k">이번 주 주휴수당</div>
+      <div class="big" id="total">0원</div>
+      <div class="sub" id="sub"></div>
+      <div class="vbars" id="bars" role="img" aria-label="요일별 유급 시간 막대그래프. 마지막이 주휴"></div>
+      <div class="vaxis" id="axis" aria-hidden="true"></div>
+      <div class="sub" style="margin-top:4px;font-size:12px">일한 날의 시간과, 쉬어도 받는 주휴 시간 (밝은 막대)</div>
+      <dl class="figs">
+        <div><dt>주급 합계</dt><dd id="weekly">-</dd></div>
+        <div><dt>한 달 예상</dt><dd id="monthly">-</dd></div>
+        <div><dt>한 달 주휴수당</dt><dd id="mh">-</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <p class="tip" id="tip" style="margin-top:14px"></p>
+
+  <section class="sec">
+    <h2>주 근무시간별 주휴수당 (최저시급 기준)</h2>
+    <div class="box scroll"><table>
+      <thead><tr><th>주 근무시간</th><th>주휴 시간</th><th>주휴수당</th><th>한 달 예상 월급</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2>계산 기준 (근로기준법 제55조)</h2>
+    <div class="box"><ul>
+      <li>일주일에 15시간 이상 일하기로 하고, 그 날을 모두 나갔다면 주휴수당이 생겨요.</li>
+      <li>주휴수당 = (일주일 근무시간 ÷ 40) × 8시간 × 시급</li>
+      <li>일주일에 40시간 넘게 일해도 주휴는 8시간까지예요. 넘는 시간은 연장근로수당으로 따로 받아요.</li>
+      <li>5인 미만 가게에서 일해도 주휴수당은 받을 수 있어요.</li>
+      <li>한 달 예상은 (주 근무시간 + 주휴 시간) × 365 ÷ 7 ÷ 12를 반올림한 시간으로 계산했어요. 주 40시간이면 209시간이에요.</li>
+      <li>세금과 4대보험을 빼기 전 금액이에요.</li>
+    </ul></div>
+  </section>
+
+  <section class="more">
+    <h2>이것도 받을 셈 해볼까요?</h2>
+    <div class="tiles">
+      <a class="tile" href="/annual-leave/" style="background:#DCEFE2"><b>연차수당</b><span>안 쓴 연차, 돈으로 얼마</span><em>계산하기 →</em></a>
+      <a class="tile" href="/unemployment/" style="background:#FBDDE6"><b>실업급여</b><span>하루 얼마, 며칠 동안</span><em>계산하기 →</em></a>
+      <a class="tile" href="/severance/" style="background:#E3E4FA"><b>퇴직금</b><span>그만두면 얼마 받을까</span><em>계산하기 →</em></a>
+    </div>
+  </section>
+
+  <footer><nav class="flinks"><a href="/about/">사이트 소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a></nav>예상 금액이에요. 근로계약 내용에 따라 달라질 수 있어요.</footer>
+</div>
+<div class="stick" aria-hidden="true"><span>주휴수당</span><b id="stk">0원</b></div>
+
+<script src="/assets/site.js"></script>
+<script>
+{
+  const $ = id => document.getElementById(id);
+  const saved = BS.store('wh') || {};
+  let hours = saved.h || 8, days = saved.d || 5;
+  const perfect = $('perfect');
+  if (saved.p === false) perfect.checked = false;
+  const wage = BS.moneyInput($('wage'), render);
+  if (saved.w) wage.set(saved.w);
+  const DAY = ['월', '화', '수', '목', '금', '토'];
+
+  function render() {
+    const w = wage.read();
+    $('hOut').textContent = (hours % 1 ? hours.toFixed(1) : hours) + '시간';
+    document.querySelectorAll('#days button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.d === days)));
+    const r = BS.calc.weeklyHoliday(w, hours, days, perfect.checked);
+    BS.countUp($('total'), r.holiday, BS.won);
+    BS.countUp($('stk'), r.holiday, BS.won);
+    $('sub').textContent = r.eligible ? '주 ' + r.weekHours + '시간 일하면 ' + (Math.round(r.holidayHours * 10) / 10) + '시간치를 더 받아요' : '이번 주는 주휴수당이 없어요';
+    $('weekly').textContent = BS.manwon(r.weekly) + ' 원';
+    $('monthly').textContent = BS.manwon(r.monthly) + ' 원';
+    $('mh').textContent = BS.manwon(r.monthlyHoliday) + ' 원';
+
+    const items = [];
+    for (let i = 0; i < days; i++) items.push({ pct: hours / 12 * 100, cls: '', title: DAY[i] + ' ' + hours + '시간', label: DAY[i] });
+    items.push({ pct: r.holidayHours / 12 * 100, cls: 'on', title: '주휴 ' + r.holidayHours + '시간', label: '주휴' });
+    BS.setVBars($('bars'), $('axis'), items);
+
+    const rows = [];
+    [15, 20, 25, 30, 35, 40].forEach(h => {
+      const x = BS.calc.weeklyHoliday(10320, h, 1, true);
+      rows.push('<tr' + (h === r.weekHours ? ' style="background:#FFF1A8"' : '') + '><td>' + h + '시간</td><td>' + (Math.round(x.holidayHours * 10) / 10) + '시간</td><td>' + BS.won(x.holiday) + '</td><td>' + BS.won(x.monthly) + '</td></tr>');
+    });
+    $('rows').innerHTML = rows.join('');
+
+    let tip = '';
+    if (r.weekHours < 15) tip = '일주일에 15시간보다 적게 일하면 주휴수당이 생기지 않아요. ' + (15 - r.weekHours) + '시간만 더 일하면 받을 수 있어요.';
+    else if (!perfect.checked) tip = '약속한 근무일에 하루라도 빠지면 그 주는 주휴수당이 없어요. 지각이나 조퇴는 결근이 아니에요.';
+    else if (r.weekHours > 40) tip = '40시간을 넘은 ' + (r.weekHours - 40) + '시간은 주휴가 아니라 연장근로수당(시급의 1.5배, 5인 이상 사업장)으로 따로 받아요.';
+    if (w && w < 10320) tip = '입력한 시급이 2026년 최저시급 10,320원보다 낮아요. 최저시급보다 적게 주는 건 불법이에요.';
+    $('tip').textContent = tip;
+    BS.store('wh', { w: w, h: hours, d: days, p: perfect.checked });
+  }
+
+  $('hdec').addEventListener('click', () => { hours = Math.max(1, hours - 0.5); render(); });
+  $('hinc').addEventListener('click', () => { hours = Math.min(12, hours + 0.5); render(); });
+  $('days').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { days = +b.dataset.d; render(); } });
+  perfect.addEventListener('change', render);
+  $('f').addEventListener('submit', e => e.preventDefault());
+  render();
+}
+</script>
+</body>
+</html>

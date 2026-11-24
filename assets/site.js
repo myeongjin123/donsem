@@ -44,6 +44,20 @@
       return { avgDaily: avgDaily, daily: Math.round(daily), kind: kind, days: days, total: Math.round(daily) * days, per4w: Math.round(daily) * 28 };
     },
 
+    // 주휴수당: 주 15시간 이상 일하고 개근하면, (주 소정근로시간 ÷ 40) × 8시간 × 시급. 40시간 넘어도 8시간까지
+    weeklyHoliday: function (wage, hoursPerDay, daysPerWeek, perfect) {
+      var weekHours = hoursPerDay * daysPerWeek;
+      var eligible = weekHours >= 15 && perfect;
+      var holidayHours = eligible ? Math.min(40, weekHours) / 40 * 8 : 0;
+      var holiday = Math.round(holidayHours * wage);
+      var base = Math.round(weekHours * wage);
+      var weekly = base + holiday;
+      // 월 환산은 주당 유급시간 × 365 ÷ 7 ÷ 12를 반올림한 시간으로 (주 40시간이면 209시간)
+      var monthHours = Math.round((weekHours + holidayHours) * 365 / 7 / 12);
+      var monthly = Math.round(monthHours * wage);
+      return { weekHours: weekHours, eligible: eligible, holidayHours: holidayHours, holiday: holiday, base: base, weekly: weekly, monthHours: monthHours, monthly: monthly, monthlyHoliday: Math.round(holidayHours * 365 / 7 / 12 * wage) };
+    },
+
     // 퇴직금: 1일 평균임금 × 30 × 재직일수 ÷ 365
     // 1일 평균임금 = (퇴직 전 3개월 임금 + 연 상여금 × 3/12 + 연차수당 × 3/12) ÷ 그 3개월의 달력 일수
     severance: function (start, lastDay, monthly, bonus, leavePay) {
