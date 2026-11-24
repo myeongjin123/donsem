@@ -213,7 +213,7 @@
   // 금액 입력칸: 쉼표 자동, 숫자만
   function moneyInput(input, onChange) {
     function read() { return Number(String(input.value).replace(/[^0-9]/g, '')) || 0; }
-    function fmt() { var v = read(); input.value = v ? v.toLocaleString('ko-KR') : ''; }
+    function fmt() { var v = read(); input.value = v ? v.toLocaleString('ko-KR') : (/[0-9]/.test(input.value) ? '0' : ''); }
     input.addEventListener('input', function () { fmt(); onChange(); });
     fmt();
     return { read: read, set: function (v) { input.value = String(v); fmt(); } };
