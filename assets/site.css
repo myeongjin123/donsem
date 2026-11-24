@@ -91,3 +91,7 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--mut)}
 .flinks{margin-bottom:8px}
 .flinks a{color:var(--mut);display:inline-block;min-height:32px;line-height:32px}
 .sec p{margin:0 0 10px}
+.pct{display:flex;align-items:center;justify-content:center;gap:2px;width:96px;height:44px;border-radius:14px;border:2px solid var(--soft2);background:var(--bg)}
+.pct:focus-within{border-color:var(--acc)}
+.pct input{width:56px;border:0;outline:0;background:transparent;text-align:right;font:700 17px "Noto Sans KR",sans-serif;color:var(--ink);padding:0}
+.pct span{font-weight:700;font-size:17px}

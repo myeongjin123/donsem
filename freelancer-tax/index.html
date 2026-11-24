@@ -43,10 +43,10 @@
         <div class="hint">통장에 들어온 금액이 아니라 계약 금액(세전) 기준이에요.</div>
       </div>
       <div class="row">
-        <span class="lab" id="rl">경비율</span>
-        <div class="stepper"><button type="button" id="rdec" aria-label="경비율 낮추기">−</button><output id="rOut" aria-labelledby="rl">64.1%</output><button type="button" id="rinc" aria-label="경비율 높이기">+</button></div>
+        <label class="lab" id="rl" for="rIn">경비율</label>
+        <div class="stepper"><button type="button" id="rdec" aria-label="경비율 낮추기">−</button><span class="pct"><input id="rIn" inputmode="decimal" value="64.1" aria-labelledby="rl"><span>%</span></span><button type="button" id="rinc" aria-label="경비율 높이기">+</button></div>
       </div>
-      <div class="hint" style="margin-top:-10px">대부분의 프리랜서(업종코드 940909)는 64.1%예요. 내 업종 경비율은 홈택스 업종별 경비율 조회에서 확인할 수 있어요.</div>
+      <div class="hint" style="margin-top:-10px">칸을 눌러 직접 입력하거나 −/+로 0.5%씩 바꿔요. 대부분의 프리랜서(업종코드 940909)는 64.1%예요. 내 업종 경비율은 홈택스 업종별 경비율 조회에서 확인할 수 있어요.</div>
       <div class="row">
         <span class="lab" id="fl">부양가족 (나 포함)</span>
         <div class="stepper"><button type="button" id="fdec" aria-label="한 명 줄이기">−</button><output id="fOut" aria-labelledby="fl">1명</output><button type="button" id="finc" aria-label="한 명 늘리기">+</button></div>
@@ -113,10 +113,17 @@
   const saved = BS.store('ft') || {};
   let rate = saved.r || 64.1, fam = saved.f || 1;
   const inc = BS.moneyInput($('inc'), render);
+  const rIn = $('rIn');
+  rIn.value = String(rate);
+  rIn.addEventListener('input', () => {
+    rIn.value = rIn.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+    const v = parseFloat(rIn.value);
+    if (!isNaN(v) && v >= 0 && v <= 100) { rate = v; render(); }
+  });
+  rIn.addEventListener('blur', () => { rIn.value = String(rate); });
   if (saved.i) inc.set(saved.i);
   function render() {
     const i = inc.read();
-    $('rOut').textContent = rate.toFixed(1) + '%';
     $('fOut').textContent = fam + '명';
     const over = Math.abs(rate - 64.1) < 0.05 ? 0.497 : rate / 100;
     const r = BS.calc.freelancer(i, rate / 100, over, fam);
@@ -136,7 +143,7 @@
     ]);
     $('rows').innerHTML = [
       ['수입', '3.3% 떼기 전 합계', BS.won(i)],
-      ['경비', i > 4e7 && over !== rate / 100 ? '4,000만 × 64.1% + 넘는 부분 × 49.7%' : '수입 × ' + rate.toFixed(1) + '%', '− ' + BS.won(r.exp)],
+      ['경비', i > 4e7 && over !== rate / 100 ? '4,000만 × 64.1% + 넘는 부분 × 49.7%' : '수입 × ' + rate + '%', '− ' + BS.won(r.exp)],
       ['소득금액', '수입 − 경비', BS.won(r.profit)],
       ['과세표준', '− 150만 × ' + fam + '명', BS.won(r.taxBase)],
       ['산출세액', '기본세율 6~45%', BS.won(r.calcTax)],
@@ -150,8 +157,8 @@
     $('tip').textContent = tip;
     BS.store('ft', { i: i, r: rate, f: fam });
   }
-  $('rdec').addEventListener('click', () => { rate = Math.max(30, Math.round((rate - 0.5) * 10) / 10); render(); });
-  $('rinc').addEventListener('click', () => { rate = Math.min(95, Math.round((rate + 0.5) * 10) / 10); render(); });
+  $('rdec').addEventListener('click', () => { rate = Math.max(0, Math.round((rate - 0.5) * 10) / 10); rIn.value = String(rate); render(); });
+  $('rinc').addEventListener('click', () => { rate = Math.min(100, Math.round((rate + 0.5) * 10) / 10); rIn.value = String(rate); render(); });
   $('fdec').addEventListener('click', () => { fam = Math.max(1, fam - 1); render(); });
   $('finc').addEventListener('click', () => { fam = Math.min(8, fam + 1); render(); });
   $('f').addEventListener('submit', e => e.preventDefault());
